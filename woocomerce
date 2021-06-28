@@ -1,0 +1,19 @@
+    add_filter( 'woocommerce_get_price_html', 'change_displayed_sale_price_html', 10, 2 );
+    function change_displayed_sale_price_html( $price, $product ) {
+
+global $product;{
+
+    
+     $regular_price = (float) $product->get_regular_price(); // Regular price
+     $sale_price = (float) $product->get_price(); // Active price (the "Sale price" when on-sale)
+
+ 
+     $precision = 0; // Max number of decimals
+    
+        $cuotapreciosale = round (($sale_price - ($sale_price / 100 * 4)), $precision);
+        $price .= sprintf( __('<br><span style="font-size:15px;color:#d66d50;"></b> Con pedido Programado $%s</span>', 'woocommerce' ), number_format($cuotapreciosale, 0));
+     
+     }
+return $price;
+
+}
